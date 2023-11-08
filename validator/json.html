@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<style>
+body{margin: 40px 80px;}
+table{border-collapse:collapse; border:solid 2px green;}
+td{border:solid 1px silver;
+padding:2px 5px;
+font:normal 10pt Arial;}
+th{border:solid 1px silver;}
+</style>
+<head>
+<body>
+<h3>Danh sách sinh viên</h3>
+<div id="id01"></div>
+<script>
+var xml= new XMLHttpRequest();
+var url = "sinhVien.json";
+xml.onreadystatechange=function() {
+if (xml.readyState == 4 && xml.status == 200) {
+//alert(xml.responseText);
+display(xml.responseText);
+}
+}
+xml.open("GET", url, true);
+xml.send();
+function display(response) {
+var arr = JSON.parse(response);
+//alert((typeof arr)+"(array) of Json Objects");
+var i;
+var out = "<table>";
+out +="<tr><th>Họ tên</th><th>Địa chỉ</th></tr>";
+for(i = 0; i < arr.length; i++) {
+out += "<tr><td>" +
+arr[i].hoten+
+"</td><td>" +
+arr[i].diachi +
+"</td></tr>";}
+out += "</table>";
+document.getElementById("id01").innerHTML = out;
+}
+</script>
+</body>
+</html>
